@@ -1,0 +1,16 @@
+name: lab02-ml-2026-01
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - joblib
+  - pip:
+    - opencv-python-headless
+    - streamlit
+    - mediapipe

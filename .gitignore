@@ -1,0 +1,14 @@
+# Dataset local
+dataset/*
+!dataset/.gitkeep
+
+# Resultados del laboratorio
+artifacts/
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+
+# Herramientas locales
+.codex
+.codex/

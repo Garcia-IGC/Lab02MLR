@@ -57,13 +57,15 @@ def build_age_regression_pipeline(random_state: int) -> Pipeline:
 def resolve_cv_folds(y_train: np.ndarray, requested_cv: int = 5) -> int:
     """Ajusta la cantidad de folds al tamano real del conjunto de entrenamiento."""
 
-    counts = np.bincount(y_train.astype(int))
-    valid_counts = counts[counts > 0]
-    if valid_counts.size == 0 or int(valid_counts.min()) < 2:
-        raise ValueError(
-            "Se requieren al menos dos muestras por target para usar validacion cruzada."
-        )
-    return min(requested_cv, int(valid_counts.min()))
+    n_samples = len(y_train)
+    # Para k-fold CV, cada fold debe tener al menos 2 muestras
+    min_samples_per_fold = 2
+    max_folds = n_samples // min_samples_per_fold
+    
+    if max_folds < 1:
+        raise ValueError("No hay suficientes muestras para validacion cruzada (minimo 2).")
+    
+    return min(requested_cv, max_folds)
 
 
 def resolve_pca_components(

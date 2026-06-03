@@ -169,7 +169,9 @@ def predict_for_face(
     # Predecir edad si el modelo está disponible
     age = None
     if age_model is not None:
-        age = float(age_model.predict([face_vector])[0])
+        age_pred = float(age_model.predict([face_vector])[0])
+        # Asegurar que la edad es válida (no negativa y razonable)
+        age = max(0, min(age_pred, 130))  # Rango válido: 0-130 años
 
     return {"gender": gender_name, "age": age}
 
